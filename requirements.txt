@@ -3,6 +3,5 @@ pdf2docx
 markdown_pdf
 streamlit
 moviepy == 1.0.3
-vertexai
 google-cloud-storage
 langchain[google-vertexai]
