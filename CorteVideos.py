@@ -7,9 +7,6 @@ from moviepy.editor import VideoFileClip
 from google.oauth2 import service_account
 from AgenteIA import generar_transcripcion
 
-credentials_info = st.secrets["google_credentials"]
-credentials = service_account.Credentials.from_service_account_info(credentials_info)
-
 class ProcesadorVideo:
     def __init__(self, base_filename, user_id: str):
         # load_dotenv()
@@ -19,6 +16,8 @@ class ProcesadorVideo:
         os.makedirs(self.output_dir, exist_ok=True)
 
     def upload_to_gcs(self, file_path: str, destination_blob_name: str) -> str:
+        credentials_info = st.secrets["google_credentials"]
+        credentials = service_account.Credentials.from_service_account_info(credentials_info)
         storage_client = storage.Client(credentials=credentials)
         bucket = storage_client.bucket(self.bucket_name)
         blob = bucket.blob(f"videos/{destination_blob_name}")
