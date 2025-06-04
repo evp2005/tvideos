@@ -1,7 +1,7 @@
-dotenv
 pdf2docx
 markdown_pdf
 streamlit
 moviepy == 1.0.3
+google-cloud-aiplatform
 google-cloud-storage
 langchain[google-vertexai]
