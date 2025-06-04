@@ -8,16 +8,6 @@ from google.oauth2 import service_account
 from langchain_google_vertexai import ChatVertexAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-if "google_credentials" in st.secrets:
-    import json
-    with open("./tmp/streamlit_gcp_creds.json", "w") as f:
-        json.dump(dict(st.secrets["google_credentials"]), f)
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./tmp/streamlit_gcp_creds.json"
-
-bucket_name = st.secrets["BUCKET_NAME"]
-location_l = st.secrets["LOCATION"]
-project_id = st.secrets["PROJECT_ID"]
-
 # # Acceder a las credenciales desde st.secrets
 # credentials_info = st.secrets["google_credentials"]
 
@@ -37,8 +27,6 @@ project_id = st.secrets["PROJECT_ID"]
 # bucket_name = os.getenv("BUCKET_NAME")
 # location_l = os.getenv("LOCATION")
 # project_id = os.getenv("PROJECT_ID")
-
-vertexai.init(project=project_id, location=location_l)
 
 fecha = datetime.now()
 fecha_actual = fecha.strftime("%d de %B del %Y")
@@ -135,6 +123,18 @@ def generar_transcripcion(base_filename: str, num_segments: int):
     Returns:
         list: Lista de transcripciones generadas por el modelo para cada segmento.
     """
+    if "google_credentials" in st.secrets:
+    import json
+    with open("./tmp/streamlit_gcp_creds.json", "w") as f:
+        json.dump(dict(st.secrets["google_credentials"]), f)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./tmp/streamlit_gcp_creds.json"
+
+    bucket_name = st.secrets["BUCKET_NAME"]
+    location_l = st.secrets["LOCATION"]
+    project_id = st.secrets["PROJECT_ID"]
+
+    vertexai.init(project=project_id, location=location_l)
+    
     # Inicializar el modelo 
     model = ChatVertexAI(model_name="gemini-2.5-pro-preview-05-06", temperature=0.7)
     respuestas = []  # Lista para almacenar las respuestas
