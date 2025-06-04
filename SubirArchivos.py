@@ -6,17 +6,17 @@ import streamlit as st
 from google.cloud import storage
 from google.oauth2 import service_account
 
-bucket_documents = st.secrets["BUCKET_DOCUMENTS"]
-
-# Cargar las credenciales desde st.secrets
-credentials_info = st.secrets["google_credentials"]
-credentials = service_account.Credentials.from_service_account_info(credentials_info)
-
 # load_dotenv()
 # os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 # bucket_documents = os.getenv("BUCKET_DOCUMENTS")
 
 def subir_archivo(user_id, ruta_archivo_local, tipo_archivo):
+    bucket_documents = st.secrets["BUCKET_DOCUMENTS"]
+
+    # Cargar las credenciales desde st.secrets
+    credentials_info = st.secrets["google_credentials"]
+    credentials = service_account.Credentials.from_service_account_info(credentials_info)
+    
     # Inicializa el cliente de GCS
     storage_client = storage.Client(credentials=credentials)
     
