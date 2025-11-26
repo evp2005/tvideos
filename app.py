@@ -8,6 +8,8 @@ if "user_id" not in st.session_state:
     st.session_state["user_id"] = str(uuid.uuid4())
 user_id = st.session_state["user_id"]
 
+bucket_documents = st.secrets["BUCKET_DOCUMENTS"]
+
 def __main__():
     st.set_page_config(
     page_title="Transcripcion de Videos",
@@ -113,8 +115,8 @@ def __main__():
                 tab3.subheader("La transcripcion en formato TEXTO", False)
 
                 path_docs = f"documents/{user_id}/Transcripcion_{user_id}"
-                url_pdf = f"https://storage.googleapis.com/transcripciones_project/documents/{user_id}/Transcripcion.pdf"
-                url_docx = f"https://storage.googleapis.com/transcripciones_project/documents/{user_id}/Transcripcion.docx"
+                url_pdf = f"https://storage.googleapis.com/{bucket_documents}/documents/{user_id}/Transcripcion.pdf"
+                url_docx = f"https://storage.googleapis.com/{bucket_documents}/documents/{user_id}/Transcripcion.docx"
                 if os.path.exists(f"{path_docs}.md"):
                     vaciar_documento(user_id=user_id)
                     # Mostrar PDF en el tab1
