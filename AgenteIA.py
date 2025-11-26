@@ -136,7 +136,7 @@ def generar_transcripcion(base_filename: str, num_segments: int):
         vertexai.init(project=project_id, location=location_l)
     
     # Inicializar el modelo 
-    model = ChatVertexAI(model_name="gemini-2.5-pro-preview-05-06", temperature=0.7)
+    model = ChatVertexAI(model_name="gemini-2.5-pro", temperature=0.7)
     respuestas = []  # Lista para almacenar las respuestas
     respuesta_anterior = ""
 
